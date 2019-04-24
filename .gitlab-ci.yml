@@ -6,5 +6,8 @@ build:
     - dpkg --add-architecture i386
     - apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main"
     - apt-get update && apt-get install -y --install-recommends winehq-staging
-    - ./build.sh
+    - ./build.shAfter a job finishes, if you visit the job’s specific page, there are three buttons. You can download the artifacts archive or browse its contents, whereas the Keep button appears only if you have set an expiry date to the artifacts in case you changed your mind and want to keep them.
+  artifacts:
+    paths:
+      - dist/px.exe
 
