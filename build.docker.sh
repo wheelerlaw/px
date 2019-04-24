@@ -5,6 +5,6 @@ apt-get update && apt-get install -y curl software-properties-common gnupg1 unzi
 curl -fsSL https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
 dpkg --add-architecture i386
 apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main"
-apt-get install -y --install-recommends winehq-staging
+apt-get update && apt-get install -y --install-recommends winehq-staging
 cd px; ./build.sh
 '
