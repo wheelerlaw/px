@@ -36,7 +36,7 @@ deploy:
     # The condition is a bash match expression with a bash formatted regex
     condition: '$TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+(\.[0-9]+)?$'
 - provider: releases
-  name: "Px for Windows (pre-release)"
+  name: "Px for Windows"
   file: dist/px.exe
   skip_cleanup: true
   api_key: "$GITHUB_TOKEN"
