@@ -4,7 +4,6 @@ dist: trusty
 branches:
   only:
   - master
-  - "/^v[0-9]+\.[0-9]+\.[0-9]+|[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/"
   - vHEAD
 addons:
   apt:
@@ -30,9 +29,7 @@ deploy:
   api_key: "$GITHUB_TOKEN"
   verbose: true
   on:
-    all_branches: true
-#    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
-#    condition: $TRAVIS_TAG =~ ^(?:v[0-9]+\.[0-9]+(?:\.[0-9]+)?|[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})
+    tags: true
 - provider: releases
   file: dist/px.exe
   skip_cleanup: true
@@ -40,8 +37,6 @@ deploy:
   verbose: true
   prerelease: true
   on:
-    all_branches: true
-#    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
-#    condition: $TRAVIS_TAG =~ ^vHEAD
+    branch: vHEAD
 env:
   secure: mX6J6SYyhteFJiaqpyjAx+zUzSgK0cyH5mcJrTbYvVvUYG3swTyVVnaDE+wXGoYn1mrUOP/B1ofeODLGN2jakfELgV1hp846MNRRhUaSKvdSloTFi5BlRQy7Lzad+UowWIfoMiDpP6yG1yZN9yIBxn5zq90LbmqsILTu+s07ZnKMegJZlJRtDbMPgvviLXvkRm3zZFHOmsxTgdmpIw9073K+1bEDJOaQvpTLNl5cl6kGX8ShqvQNOFegRPRdEdEL/Oz/0QBx5GxJxlCLc50MyFjst9lc5guGwuJU4SlXyJGB6ezF/t+mcfaXpGU1Hj8+obzFOlldj1W0WHiPAxCvTl6kJ7FmwIF2nOUcTbBwynWFzFCllFz6TKx9Cl2/ZT+zaKSkODSrY9Rq0kty1IwYZLO+Pd87vtGPWeE3yKpZsmc6taS9avloq9/GM30m3AqgDuD0L14WTRHKkCnDd8JQXdVr26OGoVVXVYEkFaA+pwB5T7wQQqNw85rXJnOVgjpOazQ12r0bXZu1J1vfxHhrUq932LGGkelicu62wpPhJ87qNRIrHPwEM5yx/1PgtlPfRjseffFYvKosNkuEUC8BhNXT6R9cnOt4u6euAZITNXNI9NzLjjKBhyGVREFiJoE/99oVLNZnJtP7U951PbZNuY7JNCQ7ZiUCiwgAJAjTMxE=
