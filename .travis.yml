@@ -1,0 +1,50 @@
+language : shell
+
+env:
+  - CONDA_PYTHON=2.7
+  - CONDA_PYTHON=3.5
+  - CONDA_PYTHON=3.6
+  - CONDA_PYTHON=3.7
+
+os :
+- windows
+
+before_cache:
+  - rm -rf $HOME/miniconda/locks $HOME/miniconda/pkgs $HOME/miniconda/var $HOME/miniconda/conda-meta/history $HOME/miniconda/envs/test-environment/conda-meta/history
+
+cache :
+  directories:
+    - $HOME/download
+    - $HOME/miniconda
+    - $HOME/AppData/Local/Temp/chocolatey
+
+install:
+  # Set conda path info
+  - MINICONDA_PATH=/c/tools/miniconda3;
+  - MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
+
+  # Install miniconda
+  - if [[ -d $MINICONDA_SUB_PATH ]]; then
+      echo "miniconda for Windows already installed";
+    else
+      echo "installing miniconda for windows";
+      choco install miniconda3;
+    fi;
+  - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
+  - hash -r;
+  - python -V
+  - conda info -a
+  - conda config --set always_yes yes --set changeps1 no;
+  - conda update -q conda;
+  - if [[ ! -d $MINICONDA_PATH/envs/test-environment ]]; then
+      conda env create -n test-environment python=$CONDA_PYTHON
+    else
+      conda env update -n test-environment python=$CONDA_PYTHON
+    fi
+  - source activate test-environment
+  - python -V
+  - pip install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
+
+script: 
+  - python px.py --help
+  - cmd /c build.bat
