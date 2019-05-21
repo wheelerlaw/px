@@ -15,11 +15,8 @@ cache :
     - $HOME/AppData/Local/Temp/chocolatey
 
 install:
-  # Set conda path info
   - MINICONDA_PATH=/c/tools/miniconda3;
   - MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
-
-  # Install miniconda
   - if [[ -d $MINICONDA_SUB_PATH ]]; then
       echo "miniconda for Windows already installed";
     else
@@ -33,13 +30,6 @@ install:
   - conda info -a
   - conda config --set always_yes yes --set changeps1 no;
   - conda update -q conda;
-  #- if [[ ! -d "$MINICONDA_PATH/envs/test-environment" ]]; then
-  #    conda create -n test-environment python=$CONDA_PYTHON
-  #    conda activate test-environment
-  #  else
-  #    conda activate test-environment
-  #    conda update --all
-  #  fi
   - conda create -n $CONDA_PYTHON python=$CONDA_PYTHON
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe -V
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/Scripts/pip.exe install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
