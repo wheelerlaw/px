@@ -28,7 +28,7 @@ install:
       echo "miniconda for Windows already installed";
     else
       echo "installing miniconda for windows";
-      choco install miniconda3;
+      choco install -y miniconda3;
     fi;
   - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
   - hash -r;
@@ -46,5 +46,6 @@ install:
   - pip install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
 
 script: 
+  - python -m py_compile px.py
   - python px.py --help
   - cmd /c build.bat
