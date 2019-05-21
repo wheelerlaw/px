@@ -12,7 +12,6 @@ os :
 cache :
   directories:
     - /c/tools/miniconda3
-    - $HOME/AppData/Local/Temp/chocolatey
 
 install:
   - MINICONDA_PATH=/c/tools/miniconda3;
@@ -32,6 +31,7 @@ install:
   - conda update -q conda;
   - conda create -n $CONDA_PYTHON python=$CONDA_PYTHON
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe -V
+  - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe -m pip install --upgrade pip
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/Scripts/pip.exe install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
 
 script:
