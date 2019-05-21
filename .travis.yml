@@ -9,13 +9,9 @@ env:
 os :
 - windows
 
-before_cache:
-  - rm -rf $HOME/miniconda/locks $HOME/miniconda/pkgs $HOME/miniconda/var $HOME/miniconda/conda-meta/history $HOME/miniconda/envs/test-environment/conda-meta/history
-
 cache :
   directories:
-    - $HOME/download
-    - $HOME/miniconda
+    - /c/tools/miniconda3
     - $HOME/AppData/Local/Temp/chocolatey
 
 install:
@@ -28,21 +24,21 @@ install:
       echo "miniconda for Windows already installed";
     else
       echo "installing miniconda for windows";
-      choco install -y miniconda3 openssl.light;
+      choco install -y miniconda3;
     fi;
   - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
+  - choco install -y openssl.light;
   - hash -r;
   - python -V
   - conda info -a
   - conda config --set always_yes yes --set changeps1 no;
-  - choco install -y openssl.light;
   - conda update -q conda;
-  - if [[ ! -d $MINICONDA_PATH/envs/test-environment ]]; then
+  - if [[ ! -d "$MINICONDA_PATH/envs/test-environment" ]]; then
       conda env create -n test-environment python=$CONDA_PYTHON
     else
       conda env update -n test-environment python=$CONDA_PYTHON
     fi
-  - source activate test-environment
+  - conda activate test-environment
   - python -V
   - pip install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
 
