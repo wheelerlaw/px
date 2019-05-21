@@ -34,7 +34,14 @@ install:
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe -V
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/Scripts/pip.exe install -U keyring netaddr ntlm-auth psutil pywin32 winkerberos futures pyinstaller
 
-script: 
+script:
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe -m py_compile px.py
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/python.exe px.py --help
   - $MINICONDA_PATH/envs/$CONDA_PYTHON/Scripts/pyinstaller.exe --clean --noupx -w -F -i px.ico px.py --hidden-import win32timezone --exclude-module win32ctypes
+
+deploy:
+  provider: script
+  script: python tools.py --post --token=$GITHUB_TOKEN
+  on:
+    branch: master
+    condition: $CONDA_PYTHON = 3.7
